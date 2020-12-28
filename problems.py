@@ -51,7 +51,6 @@ _K200ENVI_TRAIN_DATASETS = [[
     ("k200train.en", "k200train.vi")
 ]]
 
-
 @registry.register_problem
 class K200TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
   """Problem spec for IWSLT'15 En-Vi translation."""
@@ -63,6 +62,24 @@ class K200TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
   def source_data_files(self, dataset_split):
     train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
     return _K200ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+
+_K500ENVI_TRAIN_DATASETS = [[
+    "",  # pylint: disable=line-too-long
+    ("k500train.en", "k500train.vi")
+]]
+
+
+@registry.register_problem
+class K500TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _K500ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
 
 
 _K200VIEN_TRAIN_DATASETS = [[
@@ -82,3 +99,21 @@ class K200TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
   def source_data_files(self, dataset_split):
     train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
     return _K200VIEN_TRAIN_DATASETS if train else _VIEN_TEST_DATASETS
+
+
+_K500VIEN_TRAIN_DATASETS = [[
+    "",  # pylint: disable=line-too-long
+    ("k500train.vi", "k500train.en")
+]]
+
+@registry.register_problem
+class K500TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _K500VIEN_TRAIN_DATASETS if train else _VIEN_TEST_DATASETS
