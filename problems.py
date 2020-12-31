@@ -82,14 +82,14 @@ class K500TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
     return _K500ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
 
 
-_FB_WIKI_K500ENVI_TRAIN_DATASETS = [[
+_FB_WIKI_K760ENVI_TRAIN_DATASETS = [[
     "",  # pylint: disable=line-too-long
-    ("Fb_Wiki_k500train.en", "Fb_Wiki_k500train.vi")
+    ("fb_wiki_k760train.en", "fb_wiki_k760train.vi")
 ]]
 
 
 @registry.register_problem
-class FbWikiK500TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
+class FbWikiK760TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
   """Problem spec for IWSLT'15 En-Vi translation."""
 
   @property
@@ -98,7 +98,7 @@ class FbWikiK500TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
 
   def source_data_files(self, dataset_split):
     train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
-    return _FB_WIKI_K500ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+    return _FB_WIKI_K760ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
 
 
 _K200VIEN_TRAIN_DATASETS = [[
@@ -139,14 +139,14 @@ class K500TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
 
 
 
-_FB_WIKI_K500VIEN_TRAIN_DATASETS = [[
+_FB_WIKI_K760VIEN_TRAIN_DATASETS = [[
     "",  # pylint: disable=line-too-long
-    ("Fb_Wiki_k500train.vi", "Fb_Wiki_k500train.en")
+    ("fb_wiki_k760train.vi", "fb_wiki_k760train.en")
 ]]
 
 
 @registry.register_problem
-class FbWikiK500TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
+class FbWikiK760TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
   """Problem spec for IWSLT'15 En-Vi translation."""
 
   @property
@@ -155,4 +155,4 @@ class FbWikiK500TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
 
   def source_data_files(self, dataset_split):
     train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
-    return _FB_WIKI_K500VIEN_TRAIN_DATASETS if train else _VIEN_TEST_DATASETS
+    return _FB_WIKI_K760VIEN_TRAIN_DATASETS if train else _VIEN_TEST_DATASETS
