@@ -89,7 +89,7 @@ _FB_WIKI_K500ENVI_TRAIN_DATASETS = [[
 
 
 @registry.register_problem
-class Fb_Wiki_K500TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
+class FbWikiK500TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
   """Problem spec for IWSLT'15 En-Vi translation."""
 
   @property
@@ -146,7 +146,7 @@ _FB_WIKI_K500VIEN_TRAIN_DATASETS = [[
 
 
 @registry.register_problem
-class Fb_Wiki_K500TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
+class FbWikiK500TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
   """Problem spec for IWSLT'15 En-Vi translation."""
 
   @property
