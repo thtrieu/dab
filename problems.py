@@ -195,6 +195,62 @@ class FbWikiM6TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
     return _FB_WIKI_M6_ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
 
 
+_FB_WIKI_M12_ENVI_TRAIN_DATASETS = [[
+    "",  # pylint: disable=line-too-long
+    ("fb_wiki_m12train.en", "fb_wiki_m12train.vi")
+]]
+
+
+@registry.register_problem
+class FbWikiM12TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _FB_WIKI_M12_ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+
+
+_FB_WIKI_M18_ENVI_TRAIN_DATASETS = [[
+    "",  # pylint: disable=line-too-long
+    ("fb_wiki_m18train.en", "fb_wiki_m18train.vi")
+]]
+
+
+@registry.register_problem
+class FbWikiM18TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _FB_WIKI_M18_ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+
+
+_FB_WIKI_M30_ENVI_TRAIN_DATASETS = [[
+    "",  # pylint: disable=line-too-long
+    ("fb_wiki_m30train.en", "fb_wiki_m30train.vi")
+]]
+
+
+@registry.register_problem
+class FbWikiM30TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _FB_WIKI_M30_ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+
 ###################################### VI-EN #######################################
 _K200VIEN_TRAIN_DATASETS = [[
     "",  # pylint: disable=line-too-long
@@ -347,3 +403,60 @@ class FbWikiM6TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
   def source_data_files(self, dataset_split):
     train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
     return _FB_WIKI_M6_VIEN_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+
+
+_FB_WIKI_M12_VIEN_TRAIN_DATASETS = [[
+    "",  # pylint: disable=line-too-long
+    ("fb_wiki_m12train.vi", "fb_wiki_m12train.en")
+]]
+
+
+@registry.register_problem
+class FbWikiM12TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _FB_WIKI_M12_VIEN_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+
+
+_FB_WIKI_M18_VIEN_TRAIN_DATASETS = [[
+    "",  # pylint: disable=line-too-long
+    ("fb_wiki_m18train.vi", "fb_wiki_m18train.en")
+]]
+
+
+@registry.register_problem
+class FbWikiM18TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _FB_WIKI_M18_VIEN_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+
+
+_FB_WIKI_M30_VIEN_TRAIN_DATASETS = [[
+    "",  # pylint: disable=line-too-long
+    ("fb_wiki_m30train.vi", "fb_wiki_m30train.en")
+]]
+
+
+@registry.register_problem
+class FbWikiM30TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _FB_WIKI_M30_VIEN_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
