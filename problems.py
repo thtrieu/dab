@@ -138,6 +138,62 @@ class M6Avg25TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
     train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
     return _M6_AVG25_ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
 
+_M6_LONGEST_ENVI_TRAIN_DATASETS = [[
+    "",  # pylint: disable=line-too-long
+    ("train.6m.longest.en", "train.6m.longest.vi")
+]]
+
+
+@registry.register_problem
+class M6LongestTranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _M6_LONGEST_ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+
+
+_M6_SHORTEST_ENVI_TRAIN_DATASETS = [[
+    "",  # pylint: disable=line-too-long
+    ("train.6m.shortest.en", "train.6m.shortest.vi")
+]]
+
+
+@registry.register_problem
+class M6ShortestTranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _M6_SHORTEST_ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+
+
+_FB_WIKI_M3_ENVI_TRAIN_DATASETS = [[
+    "",  # pylint: disable=line-too-long
+    ("fb_wiki_m3train.en", "fb_wiki_m3train.vi")
+]]
+
+
+@registry.register_problem
+class FbWikiM3TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _FB_WIKI_M3ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+
 
 ###################################### VI-EN #######################################
 _K200VIEN_TRAIN_DATASETS = [[
@@ -233,3 +289,61 @@ class M6Avg25TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
   def source_data_files(self, dataset_split):
     train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
     return _M6_AVG25_VIEN_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+
+
+
+_M6_LONGEST_VIEN_TRAIN_DATASETS = [[
+    "",  # pylint: disable=line-too-long
+    ("train.6m.longest.vi", "train.6m.longest.en")
+]]
+
+
+@registry.register_problem
+class M6LongestTranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _M6_LONGEST_VIEN_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+
+
+_M6_SHORTEST_VIEN_TRAIN_DATASETS = [[
+    "",  # pylint: disable=line-too-long
+    ("train.6m.shortest.vi", "train.6m.shortest.en")
+]]
+
+
+@registry.register_problem
+class M6ShortestTranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _M6_SHORTEST_VIEN_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+
+
+_FB_WIKI_M3_VIEN_TRAIN_DATASETS = [[
+    "",  # pylint: disable=line-too-long
+    ("fb_wiki_m3train.vi", "fb_wiki_m3train.en")
+]]
+
+
+@registry.register_problem
+class FbWikiM3TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _FB_WIKI_M3VIEN_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
