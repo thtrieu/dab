@@ -176,14 +176,14 @@ class M6ShortestTranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
     return _M6_SHORTEST_ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
 
 
-_FB_WIKI_M3_ENVI_TRAIN_DATASETS = [[
+_FB_WIKI_M6_ENVI_TRAIN_DATASETS = [[
     "",  # pylint: disable=line-too-long
-    ("fb_wiki_m3train.en", "fb_wiki_m3train.vi")
+    ("fb_wiki_m6train.en", "fb_wiki_m6train.vi")
 ]]
 
 
 @registry.register_problem
-class FbWikiM3TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
+class FbWikiM6TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
   """Problem spec for IWSLT'15 En-Vi translation."""
 
   @property
@@ -192,7 +192,7 @@ class FbWikiM3TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
 
   def source_data_files(self, dataset_split):
     train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
-    return _FB_WIKI_M3_ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+    return _FB_WIKI_M6_ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
 
 
 ###################################### VI-EN #######################################
@@ -330,14 +330,14 @@ class M6ShortestTranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
     return _M6_SHORTEST_VIEN_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
 
 
-_FB_WIKI_M3_VIEN_TRAIN_DATASETS = [[
+_FB_WIKI_M6_VIEN_TRAIN_DATASETS = [[
     "",  # pylint: disable=line-too-long
-    ("fb_wiki_m3train.vi", "fb_wiki_m3train.en")
+    ("fb_wiki_m6train.vi", "fb_wiki_m6train.en")
 ]]
 
 
 @registry.register_problem
-class FbWikiM3TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
+class FbWikiM6TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
   """Problem spec for IWSLT'15 En-Vi translation."""
 
   @property
@@ -346,4 +346,4 @@ class FbWikiM3TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
 
   def source_data_files(self, dataset_split):
     train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
-    return _FB_WIKI_M3_VIEN_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+    return _FB_WIKI_M6_VIEN_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
