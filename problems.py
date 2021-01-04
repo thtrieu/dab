@@ -192,7 +192,7 @@ class FbWikiM3TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
 
   def source_data_files(self, dataset_split):
     train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
-    return _FB_WIKI_M3ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+    return _FB_WIKI_M3_ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
 
 
 ###################################### VI-EN #######################################
@@ -346,4 +346,4 @@ class FbWikiM3TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
 
   def source_data_files(self, dataset_split):
     train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
-    return _FB_WIKI_M3VIEN_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+    return _FB_WIKI_M3_VIEN_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
