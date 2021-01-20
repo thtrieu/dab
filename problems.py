@@ -287,7 +287,27 @@ class Bookm30TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
     train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
     return _BOOK_M30_ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
 
+
+_FB_WIKI_AND_BOOK_M45_ENVI_TRAIN_DATASETS = [[
+    "",  # pylint: disable=line-too-long
+    ("fb_wiki_and_book_m45train.en", "fb_wiki_and_book_m45train.vi")
+]]
+
+
+@registry.register_problem
+class FbWikiAndBookM45TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _FB_WIKI_AND_BOOK_M45_ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+
 ###################################### VI-EN #######################################
+
 _K200VIEN_TRAIN_DATASETS = [[
     "",  # pylint: disable=line-too-long
     ("k200train.vi", "k200train.en")
@@ -531,4 +551,22 @@ class Bookm30TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
   def source_data_files(self, dataset_split):
     train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
     return _BOOK_M30_VIEN_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+
+_FB_WIKI_AND_BOOK_M45_VIEN_TRAIN_DATASETS = [[
+    "",  # pylint: disable=line-too-long
+    ("fb_wiki_and_book_m45train.vi", "fb_wiki_and_book_m45train.en")
+]]
+
+
+@registry.register_problem
+class FbWikiAndBookM45TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _FB_WIKI_AND_BOOK_M45_VIEN_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
 
