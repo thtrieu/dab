@@ -8,6 +8,14 @@ from tensor2tensor.bin import t2t_decoder
 from tensor2tensor.models import transformer
 import problems
 import tensorflow as tf
+from tensor2tensor.utils import registry
+
+
+@registry.register_hparams
+def transformer_tall9():
+  hparams = transformer.transformer_tall()
+  hparams.num_hidden_layers = 9
+  return hparams
 
 
 if __name__ == '__main__':
