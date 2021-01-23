@@ -16,7 +16,7 @@ def transformer_tall9():
   hparams = transformer.transformer_big()
   hparams.hidden_size = 768
   hparams.filter_size = 3072
-  hparams.num_hidden_layers = 12
+  hparams.num_hidden_layers = 9
   hparams.num_heads = 12
   return hparams
 
