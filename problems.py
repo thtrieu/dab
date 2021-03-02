@@ -37,16 +37,16 @@ _K133VIEN_TRAIN_DATASETS = [[
 
 
 
-_18CLASSES_ENVI_DATASETS = [
+_11CLASSES_ENVI_DATASETS = [
     ['', ('train.en.fixed.append128.tag', 'train.vi.fixed.append128.tag')],  # original.
-    ['', ('medical.en.fixed.append128.tag', 'medical.vi.fixed.append128.tag')],
-    ['', ('Gnome.en.fixed.tag', 'Gnome.vi.fixed.tag')],
-    ['', ('Kde4.en.fixed.tag', 'Kde4.vi.fixed.tag')],
+    ['', ('medical.en.fixed.train.append128.tag', 'medical.vi.fixed.train.append128.tag')],
+    ['', ('Gnome.en.fixed.filter.train.tag', 'Gnome.vi.fixed.filter.train.tag')],
+    ['', ('Kde4.en.fixed.filter.train.tag', 'Kde4.vi.fixed.filter.train.tag')],
     ['', ('open_sub_en.txt.fixed.tag', 'open_sub_vi.txt.fixed.tag')],
     ['', ('law.en.fixed.filter.fixed.tag', 'law.vi.fixed.filter.fixed.tag')],
     ['', ('fbwiki.en.fixed.tag', 'fbwiki.vi.fixed.tag')],
     ['', ('qed.en.fixed.tag', 'qed.vi.fixed.tag')],
-    ['', ('Ubuntu_tp_en.txt.fixed.tag', 'Ubuntu_tp_vi.txt.fixed.tag')],
+    ['', ('Ubuntu_tp_en.txt.fixed.filter.train.tag', 'Ubuntu_tp_vi.txt.fixed.filter.train.tag')],
     ['', ('ELRC_2922.en-vi.en.fixed.append128.tag', 'ELRC_2922.en-vi.vi.fixed.append128.tag')],
     ['', ('bible_uedin.en.fixed.append128.tag', 'bible_uedin.vi.fixed.append128.tag')],
     ['', ('lyric_en.txt.fixed.append128.tag', 'lyric_vi.txt.fixed.append128.tag')],
@@ -60,14 +60,14 @@ _18CLASSES_ENVI_DATASETS = [
 
 
 
-_18CLASSES_VIEN_DATASETS = [
-    [url, (vi, en)] for [url, (en, vi)] in _18CLASSES_ENVI_DATASETS
+_11CLASSES_VIEN_DATASETS = [
+    [url, (vi, en)] for [url, (en, vi)] in _11CLASSES_ENVI_DATASETS
 ]
 
 
 
 @registry.register_problem
-class TranslateClass18VienIwslt32k(translate_envi.TranslateEnviIwslt32k):
+class TranslateClass11VienIwslt32k(translate_envi.TranslateEnviIwslt32k):
   """Problem spec for IWSLT'15 En-Vi translation."""
 
   @property
@@ -76,13 +76,13 @@ class TranslateClass18VienIwslt32k(translate_envi.TranslateEnviIwslt32k):
 
   def source_data_files(self, dataset_split):
     train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
-    return _18CLASSES_VIEN_DATASETS if train else _VIEN_TEST_DATASETS
+    return _11CLASSES_VIEN_DATASETS if train else _VIEN_TEST_DATASETS
 
 
 
 
 @registry.register_problem
-class TranslateClass18EnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
+class TranslateClass11EnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
   """Problem spec for IWSLT'15 En-Vi translation."""
 
   @property
@@ -91,7 +91,7 @@ class TranslateClass18EnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
 
   def source_data_files(self, dataset_split):
     train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
-    return _18CLASSES_ENVI_DATASETS if train else _ENVI_TEST_DATASETS
+    return _11CLASSES_ENVI_DATASETS if train else _ENVI_TEST_DATASETS
 
 
 
