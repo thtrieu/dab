@@ -37,7 +37,7 @@ _K133VIEN_TRAIN_DATASETS = [[
 
 
 
-_19CLASSES_ENVI_DATASETS = [
+_18CLASSES_ENVI_DATASETS = [
     ['', ('train.en.fixed.append128.tag', 'train.vi.fixed.append128.tag')],  # original.
     ['', ('medical.en.fixed.append128.tag', 'medical.vi.fixed.append128.tag')],
     ['', ('Gnome.en.fixed.tag', 'Gnome.vi.fixed.tag')],
@@ -47,28 +47,27 @@ _19CLASSES_ENVI_DATASETS = [
     ['', ('fbwiki.en.fixed.tag', 'fbwiki.vi.fixed.tag')],
     ['', ('qed.en.fixed.tag', 'qed.vi.fixed.tag')],
     ['', ('Ubuntu_tp_en.txt.fixed.tag', 'Ubuntu_tp_vi.txt.fixed.tag')],
-    ['', ('ELRC_2922.en_vi.en.fixed.append128.tag', 'ELRC_2922.en_vi.vi.fixed.append128.tag')],
+    ['', ('ELRC_2922.en-vi.en.fixed.append128.tag', 'ELRC_2922.en-vi.vi.fixed.append128.tag')],
     ['', ('bible_uedin.en.fixed.append128.tag', 'bible_uedin.vi.fixed.append128.tag')],
-    ['', ('medical.en.fixed.append128.tag', 'medical.vi.fixed.append128.tag')],
-    ['', ('medical.en.fixed.append128.tag', 'medical.vi.fixed.append128.tag')],
-    ['', ('medical.en.fixed.append128.tag', 'medical.vi.fixed.append128.tag')],
-    ['', ('medical.en.fixed.append128.tag', 'medical.vi.fixed.append128.tag')],
-    ['', ('medical.en.fixed.append128.tag', 'medical.vi.fixed.append128.tag')],
-    ['', ('medical.en.fixed.append128.tag', 'medical.vi.fixed.append128.tag')],
-    ['', ('medical.en.fixed.append128.tag', 'medical.vi.fixed.append128.tag')],
-    ['', ('medical.en.fixed.append128.tag', 'medical.vi.fixed.append128.tag')],
-    ['', ('medical.en.fixed.append128.tag', 'medical.vi.fixed.append128.tag')],
+    ['', ('lyric_en.txt.fixed.append128.tag', 'lyric_vi.txt.fixed.append128.tag')],
+    ['', ('m21book_add2train.en.fixed.append128.tag', 'm21book_add2train.vi.fixed.append128.tag')],
+    ['', ('tatoeba.en.fixed.append128.tag', 'tatoeba.vi.fixed.append128.tag')],
+    ['', ('ted2020.en.fixed.filter.fixed.append128.tag', 'ted2020.vi.fixed.filter.fixed.append128.tag')],
+    ['', ('vnsn.en.filter.fixed.append128.tag', 'vnsn.vi.filter.fixed.append128.tag')],
+    ['', ('youtube.fixed.en.fixed.append128.tag', 'youtube.fixed.vi.fixed.append128.tag')],
+    ['', ('youtube.teded.en.fixed.filter.fixed.append128.tag', 'youtube.teded.vi.fixed.filter.fixed.append128.tag')],
 ]
 
 
-_19CLASSES_VIEN_DATASETS = [
-    [url, (vi, en)] for [url, (en, vi)] in _20CLASSES_ENVI_DATASETS
+
+_18CLASSES_VIEN_DATASETS = [
+    [url, (vi, en)] for [url, (en, vi)] in _18CLASSES_ENVI_DATASETS
 ]
 
 
 
 @registry.register_problem
-class TranslateClass19VienIwslt32k(translate_envi.TranslateEnviIwslt32k):
+class TranslateClass18VienIwslt32k(translate_envi.TranslateEnviIwslt32k):
   """Problem spec for IWSLT'15 En-Vi translation."""
 
   @property
@@ -77,13 +76,13 @@ class TranslateClass19VienIwslt32k(translate_envi.TranslateEnviIwslt32k):
 
   def source_data_files(self, dataset_split):
     train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
-    return _20CLASSES_VIEN_DATASETS if train else _VIEN_TEST_DATASETS
+    return _18CLASSES_VIEN_DATASETS if train else _VIEN_TEST_DATASETS
 
 
 
 
 @registry.register_problem
-class TranslateClass19EnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
+class TranslateClass18EnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
   """Problem spec for IWSLT'15 En-Vi translation."""
 
   @property
@@ -92,7 +91,7 @@ class TranslateClass19EnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
 
   def source_data_files(self, dataset_split):
     train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
-    return _20CLASSES_ENVI_DATASETS if train else _ENVI_TEST_DATASETS
+    return _18CLASSES_ENVI_DATASETS if train else _ENVI_TEST_DATASETS
 
 
 
