@@ -2,3 +2,5 @@ data_dir/*
 tmp_dir/*
 output/*
 __pycache__*
+data/*
+raw/*
