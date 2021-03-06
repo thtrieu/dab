@@ -36,19 +36,18 @@ _K133VIEN_TRAIN_DATASETS = [[
 ]]
 
 
-_11CLASSES_ENVI_DATASETS = [
+_11CLASSES_APPEND_TAG_ENVI_DATASETS = [
     ['', ('train.en.fixed.append128.tag', 'train.vi.fixed.append128.tag')],  # original.
-    ['', ('medical.en.fixed.filter.train.append128.tag', 'medical.vi.fixed.filter.train.append128.tag')],
+    ['', ('medical.en.fixed.filter.append128.tag', 'medical.vi.fixed.filter.append128.tag')],
     ['', ('Gnome.en.fixed.filter.train.tag', 'Gnome.vi.fixed.filter.train.tag')],
     ['', ('Kde4.en.fixed.filter.train.tag', 'Kde4.vi.fixed.filter.train.tag')],
-    ['', ('open_sub_en.txt.fixed.tag', 'open_sub_vi.txt.fixed.tag')],
     ['', ('law.en.fixed.filter.fixed.tag', 'law.vi.fixed.filter.fixed.tag')],
     ['', ('fbwiki.en.fixed.tag', 'fbwiki.vi.fixed.tag')],
-    ['', ('qed.en.fixed.tag', 'qed.vi.fixed.tag')],
+    ['', ('qed.en.fixed.filter.append128.tag', 'qed.vi.fixed.filter.append128.tag')],
+    ['', ('open_sub.en.fixed.max250k.append128.tag', 'open_sub.vi.fixed.max250k.append128.tag')],
     ['', ('Ubuntu_tp_en.txt.fixed.filter.train.tag', 'Ubuntu_tp_vi.txt.fixed.filter.train.tag')],
     ['', ('ELRC_2922.en-vi.en.fixed.append128.tag', 'ELRC_2922.en-vi.vi.fixed.append128.tag')],
     ['', ('bible_uedin.en.fixed.append128.tag', 'bible_uedin.vi.fixed.append128.tag')],
-    ['', ('lyric_en.txt.fixed.append128.tag', 'lyric_vi.txt.fixed.append128.tag')],
     ['', ('m21book_add2train.en.fixed.append128.tag', 'm21book_add2train.vi.fixed.append128.tag')],
     ['', ('tatoeba.en.fixed.append128.tag', 'tatoeba.vi.fixed.append128.tag')],
     ['', ('ted2020.en.fixed.filter.fixed.append128.tag', 'ted2020.vi.fixed.filter.fixed.append128.tag')],
@@ -58,13 +57,13 @@ _11CLASSES_ENVI_DATASETS = [
 ]
 
 
-_11CLASSES_VIEN_DATASETS = [
-    [url, (vi, en)] for [url, (en, vi)] in _11CLASSES_ENVI_DATASETS
+_11CLASSES_APPEND_TAG_VIEN_DATASETS = [
+    [url, (vi, en)] for [url, (en, vi)] in _11CLASSES_APPEND_TAG_ENVI_DATASETS
 ]
 
 
 @registry.register_problem
-class TranslateClass11VienIwslt32k(translate_envi.TranslateEnviIwslt32k):
+class TranslateClass11AppendtagVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
   """Problem spec for IWSLT'15 En-Vi translation."""
 
   @property
@@ -73,11 +72,11 @@ class TranslateClass11VienIwslt32k(translate_envi.TranslateEnviIwslt32k):
 
   def source_data_files(self, dataset_split):
     train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
-    return _11CLASSES_VIEN_DATASETS if train else _VIEN_TEST_DATASETS
+    return _11CLASSES_APPEND_TAG_VIEN_DATASETS if train else _VIEN_TEST_DATASETS
 
 
 @registry.register_problem
-class TranslateClass11EnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
+class TranslateClass11AppendtagEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
   """Problem spec for IWSLT'15 En-Vi translation."""
 
   @property
@@ -86,17 +85,18 @@ class TranslateClass11EnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
 
   def source_data_files(self, dataset_split):
     train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
-    return _11CLASSES_ENVI_DATASETS if train else _ENVI_TEST_DATASETS
+    return _11CLASSES_APPEND_TAG_ENVI_DATASETS if train else _ENVI_TEST_DATASETS
 
 
 _11CLASSES_APPEND_ENVI_DATASETS = [
     ['', ('train.en.fixed.append128', 'train.vi.fixed.append128')],  # original.
-    ['', ('medical.en.fixed.filter.train.append128', 'medical.vi.fixed.filter.train.append128')],
+    ['', ('medical.en.fixed.filter.append128', 'medical.vi.fixed.filter.append128')],
     ['', ('Gnome.en.fixed.filter.train.append128', 'Gnome.vi.fixed.filter.train.append128')],
     ['', ('Kde4.en.fixed.filter.train.append128', 'Kde4.vi.fixed.filter.train.append128')],
     ['', ('law.en.fixed.filter.fixed.append128', 'law.vi.fixed.filter.fixed.append128')],
     ['', ('fbwiki.en.fixed.append128', 'fbwiki.vi.fixed.append128')],
-    ['', ('qed.en.fixed.append128', 'qed.vi.fixed.append128')],
+    ['', ('qed.en.fixed.filter.append128', 'qed.vi.fixed.filter.append128')],
+    ['', ('open_sub.en.fixed.max250k.append128', 'open_sub.vi.fixed.max250k.append128')],
     ['', ('Ubuntu_tp_en.txt.fixed.filter.train.append128', 'Ubuntu_tp_vi.txt.fixed.filter.train.append128')],
     ['', ('ELRC_2922.en-vi.en.fixed.append128', 'ELRC_2922.en-vi.vi.fixed.append128')],
     ['', ('bible_uedin.en.fixed.append128', 'bible_uedin.vi.fixed.append128')],
@@ -142,12 +142,13 @@ class TranslateClass11AppendEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
 
 _11CLASSES_TAG_ENVI_DATASETS = [
     ['', ('train.en.fixed.tag', 'train.vi.fixed.tag')],  # original.
-    ['', ('medical.en.fixed.filter.train.tag', 'medical.vi.fixed.filter.train.tag')],
+    ['', ('medical.en.fixed.filter.tag', 'medical.vi.fixed.filter.tag')],
     ['', ('Gnome.en.fixed.filter.train.tag', 'Gnome.vi.fixed.filter.train.tag')],
     ['', ('Kde4.en.fixed.filter.train.tag', 'Kde4.vi.fixed.filter.train.tag')],
     ['', ('law.en.fixed.filter.fixed.tag', 'law.vi.fixed.filter.fixed.tag')],
     ['', ('fbwiki.en.fixed.tag', 'fbwiki.vi.fixed.tag')],
-    ['', ('qed.en.fixed.tag', 'qed.vi.fixed.tag')],
+    ['', ('qed.en.fixed.filter.tag', 'qed.vi.fixed.filter.tag')],
+    ['', ('open_sub.en.fixed.max250k.tag', 'open_sub.vi.fixed.max250k.tag')],
     ['', ('Ubuntu_tp_en.txt.fixed.filter.train.tag', 'Ubuntu_tp_vi.txt.fixed.filter.train.tag')],
     ['', ('ELRC_2922.en-vi.en.fixed.tag', 'ELRC_2922.en-vi.vi.fixed.tag')],
     ['', ('bible_uedin.en.fixed.tag', 'bible_uedin.vi.fixed.tag')],
@@ -193,12 +194,13 @@ class TranslateClass11TagEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
 
 _11CLASSES_PURE_ENVI_DATASETS = [
     ['', ('train.en.fixed', 'train.vi.fixed')],  # original.
-    ['', ('medical.en.fixed.filter.train', 'medical.vi.fixed.filter.train')],
+    ['', ('medical.en.fixed.filter', 'medical.vi.fixed.filter')],
     ['', ('Gnome.en.fixed.filter.train', 'Gnome.vi.fixed.filter.train')],
     ['', ('Kde4.en.fixed.filter.train', 'Kde4.vi.fixed.filter.train')],
     ['', ('law.en.fixed.filter.fixed', 'law.vi.fixed.filter.fixed')],
     ['', ('fbwiki.en.fixed', 'fbwiki.vi.fixed')],
-    ['', ('qed.en.fixed', 'qed.vi.fixed')],
+    ['', ('qed.en.fixed.filter', 'qed.vi.fixed.filter')],
+    ['', ('open_sub.en.fixed.max250k', 'open_sub.vi.fixed.max250k')],
     ['', ('Ubuntu_tp_en.txt.fixed.filter.train', 'Ubuntu_tp_vi.txt.fixed.filter.train')],
     ['', ('ELRC_2922.en-vi.en.fixed', 'ELRC_2922.en-vi.vi.fixed')],
     ['', ('bible_uedin.en.fixed', 'bible_uedin.vi.fixed')],
