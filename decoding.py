@@ -80,11 +80,11 @@ def backtranslate_interactively(
       yield input_text
 
   print('Loading from {} ..'.format(from_ckpt))
-  for itermediate_lang in decode_interactively(
+  for intermediate_lang in decode_interactively(
       from_estimator, interactive_text_input(), 
       from_problem, from_hp, from_decode_hp, from_ckpt):
-      if ' \\' in  itermediate_lang:
-        itermediate_lang = itermediate_lang.split(' \\')[0]
+      if ' \\' in  intermediate_lang:
+        intermediate_lang = intermediate_lang.split(' \\')[0]
 
   # intermediate_lang = decode_interactively(
   #   from_estimator, interactive_text_input(), 
