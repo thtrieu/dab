@@ -95,6 +95,10 @@ def backtranslate_interactively(
           input_text = raw_input('>>> ')
         if input_text == 'q':
           break
+        
+        if '\\' in input_text and input_text.split('\\')[-1].strip() == 'TED talk':
+          input_text = input_text.split(' \\')[0] + ' \\ TED'
+
         self.current_input = input_text
         yield input_text
 
