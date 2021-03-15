@@ -80,15 +80,15 @@ def backtranslate_interactively(
       yield input_text
 
   print('Loading from {} ..'.format(from_ckpt))
-  for intermediate_lang in decode_interactively(
-      from_estimator, interactive_text_input(), 
-      from_problem, from_hp, from_decode_hp, from_ckpt):
-      if ' \\' in  intermediate_lang:
-        intermediate_lang = intermediate_lang.split(' \\')[0]
+  # for intermediate_lang in decode_interactively(
+  #     from_estimator, interactive_text_input(), 
+  #     from_problem, from_hp, from_decode_hp, from_ckpt):
+  #     if ' \\' in  intermediate_lang:
+  #       intermediate_lang = intermediate_lang.split(' \\')[0]
 
-  # intermediate_lang = decode_interactively(
-  #   from_estimator, interactive_text_input(), 
-  #   from_problem, from_hp, from_decode_hp, from_ckpt)
+  intermediate_lang = decode_interactively(
+    from_estimator, interactive_text_input(), 
+    from_problem, from_hp, from_decode_hp, from_ckpt)
 
   print('Loading from {} ..'.format(to_ckpt))
   outputs = decode_interactively(
@@ -124,6 +124,8 @@ def decode_interactively(estimator,
 
   def input_fn_gen():
     for line in input_generator:
+      if ' \\' in line:
+        print('tag detected: {}'.format(line.split('\\n')[1]))
       if has_input:
         ids = inputs_vocab.encode(line.strip()) + [1]
       else:
@@ -160,6 +162,8 @@ def decode_interactively(estimator,
         targets_vocab,
         log_results=False,
         skip_eos_postprocess=decode_hp.skip_eos_postprocess)
+    if ' \\' in  decoded_outputs:
+        decoded_outputs = decoded_outputs.split(' \\')[0]
     yield decoded_outputs
 
 
