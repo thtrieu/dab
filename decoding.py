@@ -110,7 +110,7 @@ def backtranslate_interactively(
           print('Translated      :', text)
         
         if '\\' in self.current_input and '\\' not in text:
-          tag = self.current_input.split('\\ ')[1]
+          tag = self.current_input.split('\\')[1].strip()
           text += ' \\ ' + self.translated[tag]
         elif '\\' not in self.current_input and '\\' in text:
           text = text.split('\\')[0]
