@@ -125,7 +125,7 @@ def decode_interactively(estimator,
   def input_fn_gen():
     for line in input_generator:
       if ' \\' in line:
-        print('tag detected: {}'.format(line.split('\\n')[1]))
+        print('tag detected: {}'.format(line.split(' \\')[1]))
       if has_input:
         ids = inputs_vocab.encode(line.strip()) + [1]
       else:
