@@ -105,9 +105,9 @@ def backtranslate_interactively(
     def intermediate_lang_processor(self, intermediate_lang):
       for text in intermediate_lang:
         if ' \\' in text:
-          print('Translated     : ', text.split('\\')[0])
+          print('Translated      :', text.split('\\')[0])
         else:
-          print('Translated     : ', text)
+          print('Translated      :', text)
         
         if '\\' in self.current_input and '\\' not in text:
           tag = self.current_input.split('\\ ')[1]
@@ -132,7 +132,7 @@ def backtranslate_interactively(
   for output in outputs:
     if ' \\' in  output:
         output = output.split(' \\')[0]
-    print('Back-translated: {}'.format(
+    print('Back-translated : {}'.format(
         output.replace('&apos;', "'")
               .replace('&quot;', "'")
               .replace('&#91;', "(")
