@@ -128,7 +128,11 @@ def backtranslate_interactively(
   for output in outputs:
     if ' \\' in  output:
         output = output.split(' \\')[0]
-    print('Paraphrased: {}'.format(output.replace('&apos;', "'")))
+    print('Paraphrased: {}'.format(
+        output.replace('&apos;', "'")
+              .replace('&quot;', "'")
+              .replace('&#91;', "(")
+              .replace('&#93;', ")")))
 
 
 def decode_interactively(estimator,
