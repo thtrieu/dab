@@ -127,7 +127,7 @@ def backtranslate_interactively(
 
   for output in outputs:
     if ' \\' in  output:
-        output = output.spilt(' \\')[0]
+        output = output.split(' \\')[0]
     print('Paraphrased: {}'.format(output.replace('&apos;', "'")))
 
 
