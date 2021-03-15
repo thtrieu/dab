@@ -84,7 +84,7 @@ def backtranslate_interactively(
       from_estimator, interactive_text_input(), 
       from_problem, from_hp, from_decode_hp, from_ckpt):
       if ' \\' in  itermediate_lang:
-        itermediate_lang = itermediate_lang.spilt(' \\')[0]
+        itermediate_lang = itermediate_lang.split(' \\')[0]
 
   # intermediate_lang = decode_interactively(
   #   from_estimator, interactive_text_input(), 
