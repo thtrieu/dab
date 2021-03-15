@@ -74,16 +74,21 @@ def backtranslate_interactively(
         input_text = input('>>> ')
       else:
         input_text = raw_input('>>> ')
-
       if input_text == 'q':
         break
 
       yield input_text
 
   print('Loading from {} ..'.format(from_ckpt))
-  intermediate_lang = decode_interactively(
-    from_estimator, interactive_text_input(), 
-    from_problem, from_hp, from_decode_hp, from_ckpt)
+  for itermediate_lang in decode_interactively(
+      from_estimator, interactive_text_input(), 
+      from_problem, from_hp, from_decode_hp, from_ckpt):
+      if ' \\' in  itermediate_lang:
+        itermediate_lang = itermediate_lang.spilt(' \\')[0]
+
+  # intermediate_lang = decode_interactively(
+  #   from_estimator, interactive_text_input(), 
+  #   from_problem, from_hp, from_decode_hp, from_ckpt)
 
   print('Loading from {} ..'.format(to_ckpt))
   outputs = decode_interactively(
@@ -91,6 +96,8 @@ def backtranslate_interactively(
     to_problem, to_hp, to_decode_hp, to_ckpt)
 
   for output in outputs:
+    if ' \\' in  output:
+        output = output.spilt(' \\')[0]
     print('Paraphrased: {}'.format(output.replace('&apos;', "'")))
 
 
