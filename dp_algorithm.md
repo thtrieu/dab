@@ -20,9 +20,9 @@ for en_line, en2vi_line in zip(english_doc, en2vi_doc):
 # Dynamic Programming for pair matching:
 # F[m, n] is sum of bleu scores of all pairs in the best matching 
 # between en_doc[:m] and vi_doc[:n], then:
-# F[m, n] = max(F[m-1, n-1] + bleu_score[m, n],
-#               F[m-1, n],
-#               F[m, n-1])
+F[m, n] = max(F[m-1, n-1] + bleu_score[m, n],
+              F[m-1, n],
+              F[m, n-1])
 ```
 
 ### 
