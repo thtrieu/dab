@@ -108,7 +108,8 @@ def backtranslate_interactively(
         text = text.replace('&apos;', "'")
                    .replace('&quot;', "'")
                    .replace('&#91;', "(")
-                   .replace('&#93;', ")")))
+                   .replace('&#93;', ")")
+                   
         if '\\' in text:
           print('Translated      :', text.split('\\')[0])
         else:
