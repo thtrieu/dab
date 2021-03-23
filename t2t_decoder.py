@@ -8,6 +8,7 @@ from tensor2tensor.bin import t2t_decoder
 from tensor2tensor.models import transformer
 import problems
 import tensorflow as tf
+import decoding
 from tensor2tensor.utils import registry
 
 flags = tf.flags
