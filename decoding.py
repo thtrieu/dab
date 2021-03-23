@@ -364,7 +364,10 @@ def decode_from_file(estimator,
   tf.logging.info("Writing decodes into %s" % decode_filename)
   outfile = tf.gfile.Open(decode_filename, "w")
   for index in range(len(sorted_inputs)):
-    outfile.write("%s%s" % (decodes[sorted_keys[index]], decode_hp.delimiter))
+    try:
+      outfile.write("%s%s" % (decodes[sorted_keys[index]], decode_hp.delimiter))
+    except:
+      outfile.write("%s" % decode_hp.delimiter)
   outfile.flush()
   outfile.close()
 
