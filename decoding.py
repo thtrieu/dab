@@ -106,16 +106,16 @@ def backtranslate_interactively(
     def intermediate_lang_processor(self, intermediate_lang):
       for text in intermediate_lang:
         text = text.replace('&apos;', "'")
-                   .replace('&quot;', "'")
-                   .replace('&#91;', "(")
-                   .replace('&#93;', ")")
+        text = text.replace('&quot;', "'")
+        text = text.replace('&#91;', "(")
+        text = text.replace('&#93;', ")")
                    
         if '\\' in text:
           print('Translated      :', text.split('\\')[0])
         else:
           print('Translated      :', text)
         
-        #fix the input to meet the transaltion model requirement:
+        # Fix the input to meet the translation model requirement:
         if '\\' in self.current_input and ' \\ ' not in self.current_input:
           input_text = self.current_input.split('\\')[0].strip()
           tag = self.current_input.split('\\')[1].strip()
