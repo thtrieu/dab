@@ -24,6 +24,7 @@ from tensor2tensor.utils import trainer_lib
 from tensor2tensor.utils import usr_dir
 
 import tensorflow as tf
+import lib
 
 flags = tf.flags
 FLAGS = flags.FLAGS
@@ -104,17 +105,27 @@ def backtranslate_interactively(
 
     def intermediate_lang_processor(self, intermediate_lang):
       for text in intermediate_lang:
-        if ' \\' in text:
+        text = text.replace('&apos;', "'")
+                   .replace('&quot;', "'")
+                   .replace('&#91;', "(")
+                   .replace('&#93;', ")")))
+        if '\\' in text:
           print('Translated      :', text.split('\\')[0])
         else:
           print('Translated      :', text)
         
-        if '\\' in self.current_input and '\\' not in text:
+        #fix the input to meet the transaltion model requirement:
+        if '\\' in self.current_input and ' \\ ' not in self.current_input:
+          input_text = self.current_input.split('\\')[0].strip()
+          tag = self.current_input.split('\\')[1].strip()
+          self.current_input =  input_text + ' \\ ' + tag
+
+        if ' \\ ' in self.current_input and ' \\ ' not in text:
           tag = self.current_input.split('\\')[1].strip()
           text += ' \\ ' + self.translated[tag]
         elif '\\' not in self.current_input and '\\' in text:
           text = text.split('\\')[0]
-        yield text
+        yield lib.fix_contents(text)
 
 
   helper = BackTranslateHelper()
@@ -202,13 +213,12 @@ def decode_interactively(estimator,
     yield decoded_outputs
 
 
-def decode_from_text_file(estimator,
-                          problem_name,
-                          filename,
-                          hparams,
-                          decode_hp,
-                          decode_to_file=None,
-                          checkpoint_path=None):
+def decode_from_file(estimator,
+                     filename,
+                     hparams,
+                     decode_hp,
+                     decode_to_file=None,
+                     checkpoint_path=None):
   """Compute predictions on entries in filename and write them out."""
   if not decode_hp.batch_size:
     decode_hp.batch_size = 32
@@ -222,6 +232,7 @@ def decode_from_text_file(estimator,
   inputs_vocab_key = "inputs" if has_input else "targets"
   inputs_vocab = p_hp.vocabulary[inputs_vocab_key]
   targets_vocab = p_hp.vocabulary["targets"]
+  problem_name = FLAGS.problem
   filename = decoding._add_shard_to_filename(filename, decode_hp)
   tf.logging.info("Performing decoding from file (%s)." % filename)
   if has_input:
@@ -231,35 +242,6 @@ def decode_from_text_file(estimator,
     sorted_inputs = decoding._get_language_modeling_inputs(
         filename, decode_hp.delimiter, repeat=decode_hp.num_decodes)
     sorted_keys = range(len(sorted_inputs))
-
-  # If decode_to_file was provided use it as the output filename without change
-  # (except for adding shard_id if using more shards for decoding).
-  # Otherwise, use the input filename plus model, hp, problem, beam, alpha.
-  decode_filename = decode_to_file if decode_to_file else filename
-  if not decode_to_file:
-    decode_filename = decoding._decode_filename(decode_filename, problem_name, decode_hp)
-  else:
-    decode_filename = decoding._add_shard_to_filename(decode_filename, decode_hp)
-  tf.logging.info("Writing decodes into %s" % decode_filename)
-
-  # Check for decoding checkpoint.
-  decodes = []
-  shuffle_file_path = decode_filename + '.shuffle.txt'
-  if tf.gfile.Exists(shuffle_file_path):
-    with tf.gfile.Open(shuffle_file_path, 'r') as f:
-      decodes = [line.strip() for line in f.readlines()]
-    tf.logging.info('Read {} sentences from checkpoint.'.format(len(decodes)))
-
-  all_sorted_inputs = sorted_inputs
-  # We only need to decode these inputs:
-  sorted_inputs = sorted_inputs[len(decodes):]
-
-  # We don't need to waste computation on empty lines:
-  num_empty_lines = 0
-  while sorted_inputs and sorted_inputs[-1] == '':
-    num_empty_lines += 1
-    sorted_inputs.pop(-1)
-
   num_sentences = len(sorted_inputs)
   num_decode_batches = (num_sentences - 1) // decode_hp.batch_size + 1
 
@@ -290,10 +272,11 @@ def decode_from_text_file(estimator,
           num_decode_batches, sorted_inputs,
           inputs_vocab, decode_hp.batch_size,
           decode_hp.max_input_size,
-          task_id=-1, has_input=has_input)
+          task_id=decode_hp.multiproblem_task_id, has_input=has_input)
       gen_fn = decoding.make_input_fn_from_generator(input_gen)
       example = gen_fn()
-      return decoding._decode_input_tensor_to_features_dict(example, hparams)
+      return decoding._decode_input_tensor_to_features_dict(example, hparams, decode_hp)
+  decodes = []
   result_iter = estimator.predict(input_fn, checkpoint_path=checkpoint_path)
 
   start_time = time.time()
@@ -310,9 +293,6 @@ def decode_from_text_file(estimator,
       except StopIteration:
         break
 
-  writing_mode = 'a' if tf.gfile.Exists(shuffle_file_path) else 'w'
-  shuffle_file = tf.gfile.Open(shuffle_file_path, writing_mode)
-  count = 0
   for elapsed_time, result in timer(result_iter):
     if decode_hp.return_beams:
       beam_decodes = []
@@ -356,48 +336,14 @@ def decode_from_text_file(estimator,
           log_results=decode_hp.log_results,
           skip_eos_postprocess=decode_hp.skip_eos_postprocess)
       decodes.append(decoded_outputs)
-
-    # Write decoded text to checkpoint
-    new_decode = decodes[-1]
-    shuffle_file.write(new_decode + '\n')
-
-    # Flush checkpoint to storage.
-    count += 1
-    if count % decode_hp.batch_size == 0:
-      tf.logging.info('Done {}/{}. Flushing.'.format(
-          count, len(sorted_inputs)))
-      shuffle_file.flush()
-      shuffle_file.close()
-      shuffle_file = tf.gfile.Open(shuffle_file_path, 'a')
-
     total_time_per_step += elapsed_time
     total_cnt += result["outputs"].shape[-1]
-
-  for _ in range(num_empty_lines):
-    decodes.append('')
-    shuffle_file.write('\n')
-
-  # Write the final output to file.
-  outfile = tf.gfile.Open(decode_filename, "w")
-  for index in range(len(all_sorted_inputs)):
-    outfile.write("%s%s" % (decodes[sorted_keys[index]], 
-                            decode_hp.delimiter))
-  outfile.flush()
-  outfile.close()
-
-  # Close and remove checkpoint.
-  shuffle_file.flush()
-  shuffle_file.close()
-  tf.gfile.Remove(shuffle_file_path)
-
-  # Print some decoding stats.
   duration = time.time() - start_time
-  if total_cnt:
-    tf.logging.info("Elapsed Time: %5.5f" % duration)
-    tf.logging.info("Averaged Single Token Generation Time: %5.7f "
-                    "(time %5.7f count %d)" %
-                    (total_time_per_step / total_cnt,
-                     total_time_per_step, total_cnt))
+  tf.logging.info("Elapsed Time: %5.5f" % duration)
+  tf.logging.info("Averaged Single Token Generation Time: %5.7f "
+                  "(time %5.7f count %d)" %
+                  (total_time_per_step / total_cnt,
+                   total_time_per_step, total_cnt))
   if decode_hp.batch_size == 1:
     tf.logging.info("Inference time %.4f seconds "
                     "(Latency = %.4f ms/setences)" %
@@ -407,6 +353,33 @@ def decode_from_text_file(estimator,
                     "(Throughput = %.4f sentences/second)" %
                     (duration, num_sentences/duration))
 
+  # If decode_to_file was provided use it as the output filename without change
+  # (except for adding shard_id if using more shards for decoding).
+  # Otherwise, use the input filename plus model, hp, problem, beam, alpha.
+  decode_filename = decode_to_file if decode_to_file else filename
+  if not decode_to_file:
+    decode_filename = decoding._decode_filename(decode_filename, problem_name, decode_hp)
+  else:
+    decode_filename = decoding._add_shard_to_filename(decode_filename, decode_hp)
+  tf.logging.info("Writing decodes into %s" % decode_filename)
+  outfile = tf.gfile.Open(decode_filename, "w")
+  for index in range(len(sorted_inputs)):
+    outfile.write("%s%s" % (decodes[sorted_keys[index]], decode_hp.delimiter))
+  outfile.flush()
+  outfile.close()
+
+  # output_dir = os.path.join(estimator.model_dir, "decode")
+  # tf.gfile.MakeDirs(output_dir)
+
+  # run_postdecode_hooks(DecodeHookArgs(
+  #     estimator=estimator,
+  #     problem=hparams.problem,
+  #     output_dirs=[output_dir],
+  #     hparams=hparams,
+  #     decode_hparams=decode_hp,
+  #     predictions=list(result_iter)
+  # ), None)
+
 
 def t2t_decoder(problem_name, data_dir, 
                 decode_from_file, decode_to_file,
@@ -414,7 +387,7 @@ def t2t_decoder(problem_name, data_dir,
   hp, decode_hp, estimator = create_hp_and_estimator(
       problem_name, data_dir, checkpoint_path, decode_to_file)
 
-  decode_from_text_file(
+  decode_from_file(
       estimator, problem_name,
       decode_from_file, hp, 
       decode_hp, decode_to_file,

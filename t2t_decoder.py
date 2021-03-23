@@ -10,6 +10,8 @@ import problems
 import tensorflow as tf
 from tensor2tensor.utils import registry
 
+flags = tf.flags
+FLAGS = flags.FLAGS
 
 @registry.register_hparams
 def transformer_tall9():
@@ -23,4 +25,9 @@ def transformer_tall9():
 
 if __name__ == '__main__':
   tf.logging.set_verbosity(tf.logging.INFO)
+  t2t_decoder(FLAGS.problem, 
+              FLAGS.data_dir, 
+              FLAGS.decode_from_file, 
+              FLAGS.decode_to_file,
+              FLAGS.checkpoint_path or FLAGS.output_dir)
   tf.app.run(t2t_decoder.main)
