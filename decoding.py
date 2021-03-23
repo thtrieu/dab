@@ -215,11 +215,11 @@ def decode_interactively(estimator,
 
 
 def decode_from_file_fn(estimator,
-                     filename,
-                     hparams,
-                     decode_hp,
-                     decode_to_file=None,
-                     checkpoint_path=None):
+                        filename,
+                        hparams,
+                        decode_hp,
+                        decode_to_file=None,
+                        checkpoint_path=None):
   """Compute predictions on entries in filename and write them out."""
   if not decode_hp.batch_size:
     decode_hp.batch_size = 32
@@ -390,9 +390,7 @@ def t2t_decoder(problem_name, data_dir,
                 checkpoint_path):
   hp, decode_hp, estimator = create_hp_and_estimator(
       problem_name, data_dir, checkpoint_path, decode_to_file)
-
   decode_from_file_fn(
-      estimator, problem_name,
-      decode_from_file, hp, 
-      decode_hp, decode_to_file,
+      estimator, decode_from_file,
+      hp, decode_hp, decode_to_file,
       checkpoint_path=checkpoint_path)
