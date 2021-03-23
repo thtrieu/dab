@@ -214,7 +214,7 @@ def decode_interactively(estimator,
     yield decoded_outputs
 
 
-def decode_from_file(estimator,
+def decode_from_file_fn(estimator,
                      filename,
                      hparams,
                      decode_hp,
@@ -391,7 +391,7 @@ def t2t_decoder(problem_name, data_dir,
   hp, decode_hp, estimator = create_hp_and_estimator(
       problem_name, data_dir, checkpoint_path, decode_to_file)
 
-  decode_from_file(
+  decode_from_file_fn(
       estimator, problem_name,
       decode_from_file, hp, 
       decode_hp, decode_to_file,
