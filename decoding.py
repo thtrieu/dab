@@ -365,6 +365,7 @@ def decode_from_file_fn(estimator,
   tf.logging.info("Writing decodes into %s" % decode_filename)
   outfile = tf.gfile.Open(decode_filename, "w")
   for index in range(len(sorted_inputs)):
+    import pdb; pdb.set_trace()
     output = decodes[sorted_keys[index]].replace('\n', ' ')
     try:
       outfile.write("%s%s" % (output, decode_hp.delimiter))
