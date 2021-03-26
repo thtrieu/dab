@@ -9,7 +9,6 @@ import problems
 import tensorflow as tf
 import decoding
 import t2t_decoder
-import t2t_trainer
 from tensor2tensor.utils import registry
 
 flags = tf.flags
