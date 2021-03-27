@@ -19,7 +19,7 @@ if __name__ == '__main__':
   tf.logging.set_verbosity(tf.logging.INFO)
   # tf.app.run(t2t_decoder.main)
 
-  trainer_lib.set_random_seed(FLAGS.random_seed)
+  # trainer_lib.set_random_seed(FLAGS.random_seed)
 
   hp = trainer_lib.create_hparams(
       FLAGS.hparams_set,
