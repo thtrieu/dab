@@ -34,8 +34,9 @@ if __name__ == '__main__':
       decode_hparams=decode_hp
   )
 
+  ckpt_path = FLAGS.checkpoint_path or FLAGS.output_dir
   import pdb; pdb.set_trace()
-  model.initialize_from_ckpt(FLAGS.checkpoint_path or FLAGS.output_dir)
+  model.initialize_from_ckpt(ckpt_path)
   
   # features = {
   #         "inputs": layers.Input(shape=[1, 128]),
