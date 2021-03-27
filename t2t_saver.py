@@ -25,6 +25,8 @@ if __name__ == '__main__':
       FLAGS.problem, FLAGS.data_dir, FLAGS.checkpoint_path
   )
 
+  hp.model_dir = FLAGS.checkpoint_path or FLAGS.output_dir
+
   model_cls = t2t_decoder.registry.model(FLAGS.model)
 
   model = model_cls(
