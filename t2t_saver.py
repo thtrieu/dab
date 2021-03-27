@@ -8,6 +8,7 @@ from tensor2tensor.models import transformer
 import problems
 import tensorflow as tf
 import decoding
+import os
 import t2t_decoder
 from tensor2tensor.utils import registry
 
@@ -18,9 +19,20 @@ if __name__ == '__main__':
   tf.logging.set_verbosity(tf.logging.INFO)
   # tf.app.run(t2t_decoder.main)
 
-  hp, decode_hp, estimator = decoding.create_hp_and_estimator(
-      FLAGS.problem, FLAGS.data_dir, FLAGS.checkpoint_path or FLAGS.output_dir)
-  
+  trainer_lib.set_random_seed(FLAGS.random_seed)
+
+  hp = trainer_lib.create_hparams(
+      FLAGS.hparams_set,
+      FLAGS.hparams,
+      data_dir=os.path.expanduser(FLAGS.data_dir),
+      problem_name=FLAGS.problem)
+
+  decode_hp = decoding.decode_hparams(FLAGS.decode_hparams)
+  decode_hp.shards = FLAGS.decode_shards
+  decode_hp.shard_id = FLAGS.worker_id
+  decode_in_memory = FLAGS.decode_in_memory or decode_hp.decode_in_memory
+  decode_hp.decode_in_memory = decode_in_memory
+
   model_cls = t2t_decoder.registry.model(FLAGS.model)
 
   run_config = t2t_decoder.t2t_trainer.create_run_config(hp)

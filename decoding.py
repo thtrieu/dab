@@ -34,7 +34,6 @@ def create_hp_and_estimator(
     problem_name, data_dir, checkpoint_path, decode_to_file=None):
   trainer_lib.set_random_seed(FLAGS.random_seed)
 
-  print(FLAGS.hparams_set, FLAGS.hparams)
   hp = trainer_lib.create_hparams(
       FLAGS.hparams_set,
       FLAGS.hparams,
