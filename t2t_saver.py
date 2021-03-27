@@ -34,6 +34,6 @@ if __name__ == '__main__':
       decode_hparams=decode_hp
   )
 
-  model.get_scaffold_fn(FLAGS.checkpoint_path or FLAGS.output_dir)()
+  model.initialize_from_ckpt(FLAGS.checkpoint_path or FLAGS.output_dir)
 
   model.save('Translation_Vien_Base1m')
