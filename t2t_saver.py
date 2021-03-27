@@ -9,7 +9,7 @@ import problems
 import tensorflow as tf
 import decoding
 import os
-import t2t_decoder
+from tensor2tensor.bin import t2t_decoder
 from tensor2tensor.utils import trainer_lib
 from tensor2tensor.utils import registry
 
