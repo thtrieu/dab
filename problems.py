@@ -35,6 +35,162 @@ _K133VIEN_TRAIN_DATASETS = [[
     ("train.vi", "train.en")
 ]]
 
+# ----------------28.03.21
+# Multicc split low bleu
+_MULTICCMIN20LOWBLEU_CLASS11_ENVI_TRAIN_DATASETS = [
+    ['', ('multicc_min20_split_0.en', 'multicc_min20_split_0.vi')],
+    ['', ('train.en.fixed', 'train.vi.fixed')],  # original.
+    ['', ('medical.en.fixed.filter', 'medical.vi.fixed.filter')],
+    ['', ('Gnome.en.fixed.filter.train', 'Gnome.vi.fixed.filter.train')],
+    ['', ('Kde4.en.fixed.filter.train', 'Kde4.vi.fixed.filter.train')],
+    ['', ('law.en.fixed.filter.fixed', 'law.vi.fixed.filter.fixed')],
+    ['', ('fbwiki.en.fixed', 'fbwiki.vi.fixed')],
+    ['', ('qed.en.fixed.filter', 'qed.vi.fixed.filter')],
+    ['', ('open_sub.en.fixed.max250k', 'open_sub.vi.fixed.max250k')],
+    ['', ('Ubuntu_tp_en.txt.fixed.filter.train', 'Ubuntu_tp_vi.txt.fixed.filter.train')],
+    ['', ('ELRC_2922.en-vi.en.fixed', 'ELRC_2922.en-vi.vi.fixed')],
+    ['', ('bible_uedin.en.fixed', 'bible_uedin.vi.fixed')],
+    ['', ('m21book_add2train.en.fixed', 'm21book_add2train.vi.fixed')],
+    ['', ('tatoeba.en.fixed', 'tatoeba.vi.fixed')],
+    ['', ('ted2020.en.fixed.filter.fixed', 'ted2020.vi.fixed.filter.fixed')],
+    ['', ('vnsn.en.filter.fixed', 'vnsn.vi.filter.fixed')],
+    ['', ('youtube.fixed.en.fixed', 'youtube.fixed.vi.fixed')],
+    ['', ('youtube.teded.en.fixed.filter.fixed', 'youtube.teded.vi.fixed.filter.fixed')],
+  ]
+
+@registry.register_problem
+class Multiccmin20lowbleuClass11TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _MULTICCMIN20LOWBLEU_CLASS11_ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+
+_MULTICCMIN20LOWBLEU_CLASS11_VIEN_TRAIN_DATASETS = [
+    [url, (vi, en)] for [url, (en, vi)] in _MULTICCMIN20LOWBLEU_CLASS11_ENVI_TRAIN_DATASETS
+]
+
+@registry.register_problem
+class Multiccmin20lowbleuClass11TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _MULTICCMIN20LOWBLEU_CLASS11_VIEN_TRAIN_DATASETS if train else _VIEN_TEST_DATASETS
+
+# Multicc split mid bleu
+
+_MULTICCMIN20MIDBLEU_CLASS11_ENVI_TRAIN_DATASETS = [
+    ['', ('multicc_min20_split_1.en', 'multicc_min20_split_1.vi')],
+    ['', ('train.en.fixed', 'train.vi.fixed')],  # original.
+    ['', ('medical.en.fixed.filter', 'medical.vi.fixed.filter')],
+    ['', ('Gnome.en.fixed.filter.train', 'Gnome.vi.fixed.filter.train')],
+    ['', ('Kde4.en.fixed.filter.train', 'Kde4.vi.fixed.filter.train')],
+    ['', ('law.en.fixed.filter.fixed', 'law.vi.fixed.filter.fixed')],
+    ['', ('fbwiki.en.fixed', 'fbwiki.vi.fixed')],
+    ['', ('qed.en.fixed.filter', 'qed.vi.fixed.filter')],
+    ['', ('open_sub.en.fixed.max250k', 'open_sub.vi.fixed.max250k')],
+    ['', ('Ubuntu_tp_en.txt.fixed.filter.train', 'Ubuntu_tp_vi.txt.fixed.filter.train')],
+    ['', ('ELRC_2922.en-vi.en.fixed', 'ELRC_2922.en-vi.vi.fixed')],
+    ['', ('bible_uedin.en.fixed', 'bible_uedin.vi.fixed')],
+    ['', ('m21book_add2train.en.fixed', 'm21book_add2train.vi.fixed')],
+    ['', ('tatoeba.en.fixed', 'tatoeba.vi.fixed')],
+    ['', ('ted2020.en.fixed.filter.fixed', 'ted2020.vi.fixed.filter.fixed')],
+    ['', ('vnsn.en.filter.fixed', 'vnsn.vi.filter.fixed')],
+    ['', ('youtube.fixed.en.fixed', 'youtube.fixed.vi.fixed')],
+    ['', ('youtube.teded.en.fixed.filter.fixed', 'youtube.teded.vi.fixed.filter.fixed')],
+  ]
+
+@registry.register_problem
+class Multiccmin20midbleuClass11TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _MULTICCMIN20MIDBLEU_CLASS11_ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+
+_MULTICCMIN20MIDBLEU_CLASS11_VIEN_TRAIN_DATASETS = [
+    [url, (vi, en)] for [url, (en, vi)] in _MULTICCMIN20MIDBLEU_CLASS11_ENVI_TRAIN_DATASETS
+]
+
+@registry.register_problem
+class Multiccmin20midbleuClass11TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _MULTICCMIN20MIDBLEU_CLASS11_VIEN_TRAIN_DATASETS if train else _VIEN_TEST_DATASETS
+
+
+# Multicc split high bleu
+
+_MULTICCMIN20HIGHBLEU_CLASS11_ENVI_TRAIN_DATASETS = [
+    ['', ('multicc_min20_split_2.en', 'multicc_min20_split_2.vi')],
+    ['', ('train.en.fixed', 'train.vi.fixed')],  # original.
+    ['', ('medical.en.fixed.filter', 'medical.vi.fixed.filter')],
+    ['', ('Gnome.en.fixed.filter.train', 'Gnome.vi.fixed.filter.train')],
+    ['', ('Kde4.en.fixed.filter.train', 'Kde4.vi.fixed.filter.train')],
+    ['', ('law.en.fixed.filter.fixed', 'law.vi.fixed.filter.fixed')],
+    ['', ('fbwiki.en.fixed', 'fbwiki.vi.fixed')],
+    ['', ('qed.en.fixed.filter', 'qed.vi.fixed.filter')],
+    ['', ('open_sub.en.fixed.max250k', 'open_sub.vi.fixed.max250k')],
+    ['', ('Ubuntu_tp_en.txt.fixed.filter.train', 'Ubuntu_tp_vi.txt.fixed.filter.train')],
+    ['', ('ELRC_2922.en-vi.en.fixed', 'ELRC_2922.en-vi.vi.fixed')],
+    ['', ('bible_uedin.en.fixed', 'bible_uedin.vi.fixed')],
+    ['', ('m21book_add2train.en.fixed', 'm21book_add2train.vi.fixed')],
+    ['', ('tatoeba.en.fixed', 'tatoeba.vi.fixed')],
+    ['', ('ted2020.en.fixed.filter.fixed', 'ted2020.vi.fixed.filter.fixed')],
+    ['', ('vnsn.en.filter.fixed', 'vnsn.vi.filter.fixed')],
+    ['', ('youtube.fixed.en.fixed', 'youtube.fixed.vi.fixed')],
+    ['', ('youtube.teded.en.fixed.filter.fixed', 'youtube.teded.vi.fixed.filter.fixed')],
+  ]
+
+@registry.register_problem
+class Multiccmin20highbleuClass11TranslateEnviIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _MULTICCMIN20HIGHBLEU_CLASS11_ENVI_TRAIN_DATASETS if train else _ENVI_TEST_DATASETS
+
+_MULTICCMIN20HIGHBLEU_CLASS11_VIEN_TRAIN_DATASETS = [
+    [url, (vi, en)] for [url, (en, vi)] in _MULTICCMIN20HIGHBLEU_CLASS11_ENVI_TRAIN_DATASETS
+]
+
+@registry.register_problem
+class Multiccmin20highbleuClass11TranslateVienIwslt32k(translate_envi.TranslateEnviIwslt32k):
+  """Problem spec for IWSLT'15 En-Vi translation."""
+
+  @property
+  def approx_vocab_size(self):
+    return 2**15  # 32768
+
+  def source_data_files(self, dataset_split):
+    train = dataset_split == translate_envi.problem.DatasetSplit.TRAIN
+    return _MULTICCMIN20HIGHBLEU_CLASS11_VIEN_TRAIN_DATASETS if train else _VIEN_TEST_DATASETS
+
+# --------------------------28.03.21---------
+
 _MULTICC_ENVI_TRAIN_DATASETS = [[
     "",  # pylint: disable=line-too-long
     ("MultiCCAligned.en.fixed.filter.filtertest", "MultiCCAligned.vi.fixed.filter.filtertest")
