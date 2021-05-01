@@ -365,7 +365,7 @@ def decode_from_file_fn(estimator,
   tf.logging.info("Writing decodes into %s" % decode_filename)
   outfile = tf.gfile.Open(decode_filename, "w")
   for index in range(len(sorted_inputs)):
-    special_chars = ["\a", "\t", "\n", "\f", "\r", "\b"]
+    special_chars = ["\a", "\n", "\f", "\r", "\b"]
     output = decodes[sorted_keys[index]]
     for c in special_chars:
       output = output.replace(c, ' ')
