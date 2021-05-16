@@ -9,7 +9,6 @@ tpu_translate(){
     tpu_num=$((vm_num * count + i))
     tpu_name=$name$tpu_num
     
-    echo 'tpu_name' $tpu_name
     
     gcloud compute tpus execution-groups create \
         --tpu-only \
@@ -26,6 +25,7 @@ tpu_translate(){
     file_numb=${strarr[1]}
 
     echo 'file_numb' $file_numb
+    echo 'tpu_name' $tpu_name
 
     file_tail=_stories.txt
     translate_tail=_stories.txt.en2vi.beam4
