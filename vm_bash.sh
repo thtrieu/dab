@@ -1,30 +1,10 @@
 #!/bin/bash
-
-tpu_translate(){
-    vm_num=$1
-    count=$2
-    i=$3
-    name=$4
-
-    tpu_num=$((vm_num * count + i))
-    tpu_name=$name$tpu_num
-    echo $tpu_name
-    
-    
-    # gcloud compute tpus execution-groups create \
-    #     --tpu-only \
-    #     --name=$tpu_name \
-    #     --accelerator-type=v2-8 \
-    #     --zone=us-central1-f \
-    #     --machine-type=n1-standard-8 \
-    #     --tf-version=1.15.5
-    # extract the number in tpu_name
-    
-    # IFS='-'
-    # read -a strarr <<< "$tpu_name"
-    # file_numb=${strarr[1]}
-    file_numb=$tpu_num
-
+translate() {
+    tpu_num=$1
+    tpu_work_num=$2
+    j=$3
+    file_numb=$((tpu_num * tpu_work_num + j))
+    tpu_name=$4
     echo 'file_numb' $file_numb
     echo 'tpu_name' $tpu_name
 
@@ -49,8 +29,22 @@ tpu_translate(){
         --decode_hparams="beam_size=4,alpha=0.6,log_results=False,return_beams=True" \
         --decode_from_file=$decode_from_file \
         --decode_to_file=$decode_to_file 
+}
 
-    echo helloworld
+tpu_translate(){
+    vm_num=$1
+    count=$2
+    i=$3
+    name=$4
+
+    tpu_num=$((vm_num * count + i))
+    tpu_name=$name$tpu_num
+    tpu_work_num=10
+    
+    for j in {0..9}; do
+        translate $tpu_num $tpu_work_num $j $tpu_name
+    done    
+    echo 'done on tpu' $tpu_num
 }
 
 
