@@ -31,10 +31,10 @@ tpu_translate(){
 
     file_tail=_stories.txt
     translate_tail=_stories.txt.en2vi.beam4
-    decode_from_file=gs://best_vi_translation/raw/split_by_5k/
-    decode_from_file=$decode_from_file$file_numb$file_tail
-    decode_to_file=$decode_from_file$file_numb$translate_tail
-
+    decode_from=gs://best_vi_translation/raw/split_by_5k/
+    decode_to_file=$decode_from$file_numb$translate_tail
+    decode_from_file=$decode_from$file_numb$file_tail
+    
     echo 'decode from ' $decode_from_file
     echo 'decode to ' $decode_to_file
 
