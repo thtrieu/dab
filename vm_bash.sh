@@ -18,6 +18,7 @@ tpu_translate(){
         --machine-type=n1-standard-8 \
         --tf-version=1.15.5
     
+    echo $tpu_name
     # extract the number in tpu_name
     
     IFS='-'
