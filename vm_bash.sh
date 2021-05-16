@@ -54,11 +54,9 @@ tpu_translate(){
 
 export name='translate-'
 
-vm_num=$1
+vm_num=$1  ##{0..4}
 count=$2
-count_1=$((count - 1))
-count_0=0
-echo $count_1 $count_0
+
 
 export train_data_dir=gs://best_vi_translation/data/translate_class11_pure_envi_iwslt32k
 export problem=translate_class11_pure_envi_iwslt32k
@@ -70,7 +68,7 @@ export ckpt_path=gs://best_vi_translation/checkpoints/translate_class11_pure_env
 export PROJECT_ID=vietai-research
 gcloud config set project ${PROJECT_ID}
 gcloud beta services identity create --service tpu.googleapis.com --project $PROJECT_ID
-
+# gcloud auth application-default login
 
 for ((i=0;i<$count;i++)); do  # i in {$count_0..$count_1}; do  
     tpu_translate $vm_num $count $i $name & 
