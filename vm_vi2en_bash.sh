@@ -9,7 +9,7 @@ translate() {
     echo 'tpu_name' $tpu_name
 
     file_tail=_vietnews.txt.fixed
-    translate_tail=_vietnews.txt.fixed.en2vi.beam4
+    translate_tail=_vietnews.txt.fixed.vi2en.beam4
     decode_from=gs://best_vi_translation/raw/vietnew_split_by_5k/
     decode_to_file=$decode_from$file_numb$translate_tail
     decode_from_file=$decode_from$file_numb$file_tail
