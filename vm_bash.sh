@@ -67,6 +67,10 @@ export hparams_set=transformer_tall9
 export ckpt_dir=gs://best_vi_translation/checkpoints/translate_class11_pure_envi_tall9_2m/SAVE
 export ckpt_path=gs://best_vi_translation/checkpoints/translate_class11_pure_envi_tall9_2m/SAVE/model.ckpt-500000
 
+export PROJECT_ID=vietai-research
+gcloud config set project ${PROJECT_ID}
+gcloud beta services identity create --service tpu.googleapis.com --project $PROJECT_ID
+
 
 for ((i=0;i<$count;i++)); do  # i in {$count_0..$count_1}; do  
     tpu_translate $vm_num $count $i $name & 
