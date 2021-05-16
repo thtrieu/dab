@@ -25,6 +25,7 @@ tpu_translate(){
     file_numb=${strarr[1]}
 
     echo 'file_numb' $file_numb
+    tpu_name=$name$tpu_num
     echo 'tpu_name' $tpu_name
 
     file_tail=_stories.txt
