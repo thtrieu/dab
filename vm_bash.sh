@@ -56,6 +56,7 @@ export name='translate-'
 
 vm_num=$1
 count=$2
+count_1=$((count-1))
 
 export train_data_dir=gs://best_vi_translation/data/translate_class11_pure_envi_iwslt32k
 export problem=translate_class11_pure_envi_iwslt32k
@@ -64,6 +65,6 @@ export hparams_set=transformer_tall9
 export ckpt_dir=gs://best_vi_translation/checkpoints/translate_class11_pure_envi_tall9_2m/SAVE
 export ckpt_path=gs://best_vi_translation/checkpoints/translate_class11_pure_envi_tall9_2m/SAVE/model.ckpt-500000
 
-for i in {0..$((count-1))}; do  
+for i in {0..$count_1}; do  
     tpu_translate $vm_num $count $i $name & 
 done
