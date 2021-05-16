@@ -50,6 +50,8 @@ tpu_translate(){
         --decode_hparams="beam_size=4,alpha=0.6,log_results=False,return_beams=True" \
         --decode_from_file=$decode_from_file \
         --decode_to_file=$decode_to_file 
+
+    echo helloworld
 }
 
 
