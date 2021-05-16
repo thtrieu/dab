@@ -8,6 +8,7 @@ tpu_translate(){
 
     tpu_num=$((vm_num * count + i))
     tpu_name=$name$tpu_num
+    echo $tpu_name
     
     
     gcloud compute tpus execution-groups create \
@@ -18,7 +19,6 @@ tpu_translate(){
         --machine-type=n1-standard-8 \
         --tf-version=1.15.5
     
-    echo $tpu_name
     # extract the number in tpu_name
     
     IFS='-'
