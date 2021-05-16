@@ -23,7 +23,7 @@ tpu_translate(){
     
     IFS='-'
     read -a strarr <<< "$tpu_name"
-    file_numb=${strarr[1]]}
+    file_numb=${strarr[1]}
 
     echo 'file_numb' $file_numb
 
