@@ -68,6 +68,6 @@ export ckpt_dir=gs://best_vi_translation/checkpoints/translate_class11_pure_envi
 export ckpt_path=gs://best_vi_translation/checkpoints/translate_class11_pure_envi_tall9_2m/SAVE/model.ckpt-500000
 
 
-for i in {$count_0..$count_1}; do  
+for ((i=0;i<$count;i++)); do  # i in {$count_0..$count_1}; do  
     tpu_translate $vm_num $count $i $name & 
 done
