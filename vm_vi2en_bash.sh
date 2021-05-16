@@ -8,9 +8,9 @@ translate() {
     echo 'file_numb' $file_numb
     echo 'tpu_name' $tpu_name
 
-    file_tail=_stories.txt
-    translate_tail=_stories.txt.en2vi.beam4
-    decode_from=gs://best_vi_translation/raw/split_by_5k/
+    file_tail=_vietnews.txt.fixed
+    translate_tail=_vietnews.txt.fixed.en2vi.beam4
+    decode_from=gs://best_vi_translation/raw/vietnew_split_by_5k/
     decode_to_file=$decode_from$file_numb$translate_tail
     decode_from_file=$decode_from$file_numb$file_tail
     
@@ -58,12 +58,12 @@ vm_num=$1  ##{0..4}
 count=$2
 
 
-export train_data_dir=gs://best_vi_translation/data/translate_class11_pure_envi_iwslt32k
-export problem=translate_class11_pure_envi_iwslt32k
+export train_data_dir=gs://best_vi_translation/data/translate_class11_pure_vien_iwslt32k
+export problem=translate_class11_pure_vien_iwslt32k
 export hparams_set=transformer_tall9
 
-export ckpt_dir=gs://best_vi_translation/checkpoints/translate_class11_pure_envi_tall9_2m/SAVE
-export ckpt_path=gs://best_vi_translation/checkpoints/translate_class11_pure_envi_tall9_2m/SAVE/model.ckpt-500000
+export ckpt_dir=gs://best_vi_translation/checkpoints/translate_class11_pure_vien_tall9_2m/SAVE
+export ckpt_path=gs://best_vi_translation/checkpoints/translate_class11_pure_vien_tall9_2m/SAVE/model.ckpt-500000
 
 export PROJECT_ID=vietai-research
 gcloud config set project ${PROJECT_ID}
