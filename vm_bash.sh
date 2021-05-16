@@ -21,12 +21,12 @@ tpu_translate(){
     
     # extract the number in tpu_name
     
-    IFS='-'
-    read -a strarr <<< "$tpu_name"
-    file_numb=${strarr[1]}
+    # IFS='-'
+    # read -a strarr <<< "$tpu_name"
+    # file_numb=${strarr[1]}
+    file_numb=$tpu_num
 
     echo 'file_numb' $file_numb
-    tpu_name=translate-$tpu_num
     echo 'tpu_name' $tpu_name
 
     file_tail=_stories.txt
