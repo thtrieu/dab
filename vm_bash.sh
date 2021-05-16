@@ -70,6 +70,7 @@ gcloud config set project ${PROJECT_ID}
 gcloud beta services identity create --service tpu.googleapis.com --project $PROJECT_ID
 # gcloud auth application-default login
 
+pwd
 for ((i=0;i<$count;i++)); do  # i in {$count_0..$count_1}; do  
     tpu_translate $vm_num $count $i $name & 
 done
