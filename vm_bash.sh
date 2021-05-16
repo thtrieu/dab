@@ -39,6 +39,7 @@ tpu_translate(){
     echo 'decode to ' $decode_to_file
 
     python3 t2t_decoder.py \
+        --alsologtostderr \
         --output_dir=$ckpt_dir \
         --checkpoint_path=$ckpt_path \
         --use_tpu \
