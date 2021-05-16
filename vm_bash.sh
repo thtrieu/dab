@@ -9,9 +9,7 @@ tpu_translate(){
     tpu_num=$((vm_num * count + i))
     tpu_name=$name$tpu_num
     
-    echo 'creating tpu'
-    echo 'tpu_name'
-    echo $tpu_name
+    echo 'tpu_name' $tpu_name
     
     gcloud compute tpus execution-groups create \
         --tpu-only \
@@ -25,7 +23,6 @@ tpu_translate(){
     
     IFS='-'
     read -a strarr <<< "$tpu_name"
-    
     file_numb=${strarr[1]]}
 
     echo 'file_numb' $file_numb
