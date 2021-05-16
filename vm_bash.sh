@@ -11,14 +11,13 @@ tpu_translate(){
     echo $tpu_name
     
     
-    gcloud compute tpus execution-groups create \
-        --tpu-only \
-        --name=$tpu_name \
-        --accelerator-type=v2-8 \
-        --zone=us-central1-f \
-        --machine-type=n1-standard-8 \
-        --tf-version=1.15.5
-    
+    # gcloud compute tpus execution-groups create \
+    #     --tpu-only \
+    #     --name=$tpu_name \
+    #     --accelerator-type=v2-8 \
+    #     --zone=us-central1-f \
+    #     --machine-type=n1-standard-8 \
+    #     --tf-version=1.15.5
     # extract the number in tpu_name
     
     # IFS='-'
@@ -71,7 +70,7 @@ export ckpt_path=gs://best_vi_translation/checkpoints/translate_class11_pure_env
 export PROJECT_ID=vietai-research
 gcloud config set project ${PROJECT_ID}
 gcloud beta services identity create --service tpu.googleapis.com --project $PROJECT_ID
-# gcloud auth application-default login --quiet
+gcloud auth application-default login
 
 pwd
 for ((i=0;i<$count;i++)); do  # i in {$count_0..$count_1}; do  
