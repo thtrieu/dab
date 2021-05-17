@@ -72,8 +72,8 @@ gcloud config set project ${PROJECT_ID}
 gcloud beta services identity create --service tpu.googleapis.com --project $PROJECT_ID
 gcloud auth application-default login
 
-left=[180 181 182 183 184 185 186 187 188 189 369 690 691 
-        692 693 694 695 696 697 698 699 736 737 738 739]
+left=(180 181 182 183 184 185 186 187 188 189 369 690 691 
+        692 693 694 695 696 697 698 699 736 737 738 739)
 
 # for ((i=0;i<$count;i++)); do  # i in {$count_0..$count_1}; do  
 for i in {0..9}; do
