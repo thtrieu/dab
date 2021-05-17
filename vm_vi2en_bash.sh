@@ -28,7 +28,7 @@ translate() {
     --data_dir=$train_data_dir --problem=$problem \
     --hparams_set=$hparams_set \
     --model=transformer \
-    --decode_hparams="beam_size=4alpha=0.6log_results=Falsereturn_beams=True" \
+    --decode_hparams="beam_size=4,alpha=0.6,log_results=False,return_beams=True" \
     --decode_from_file=$decode_from_file \
     --decode_to_file=$decode_to_file 
     
