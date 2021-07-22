@@ -37,7 +37,8 @@ class TransformerExtraTokenToDecoder(transformer.Transformer):
 
       decoder_self_attention_bias = tf.pad(
           decoder_self_attention_bias,
-          [[0, 0], [0, 0], [num_extras, 0], [num_extras, 0]]
+          [[0, 0], [0, 0], [num_extras, 0], [num_extras, 0]],
+          constant_values=0.0,
       )
       return decoder_input, decoder_self_attention_bias
 
