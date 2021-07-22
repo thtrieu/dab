@@ -44,7 +44,7 @@ class TransformerExtraTokenToDecoder(transformer.Transformer):
     self._prepare_decoder_fn = _prepare_extra_token_decoder_fn
   
   def decode(self, *args, **kwargs):
-    hparams = self._haprams
+    hparams = self._hparams
     decoder_output = super(
         TransformerExtraTokenToDecoder, self).decode(*args, **kwargs)
     return decoder_output[:, hparams.extra_tokens:, :]
