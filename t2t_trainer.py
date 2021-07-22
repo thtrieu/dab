@@ -57,7 +57,7 @@ def transformer_tall9():
   hparams.filter_size = 3072
   hparams.num_hidden_layers = 9
   hparams.num_heads = 12
-  hparams.extra_tokens = 8
+  hparams.add_hparam("extra_tokens", 8)
   return hparams
   
 
