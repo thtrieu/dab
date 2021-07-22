@@ -47,7 +47,7 @@ class TransformerExtraTokenToDecoder(transformer.Transformer):
     hparams = self._haprams
     decoder_output = super(
         TransformerExtraTokenToDecoder, self).decode(*args, **kwargs)
-    return decoder_output[:, hparams.num_extra:, :]
+    return decoder_output[:, hparams.extra_tokens:, :]
 
 
 @registry.register_hparams
@@ -57,7 +57,7 @@ def transformer_tall9():
   hparams.filter_size = 3072
   hparams.num_hidden_layers = 9
   hparams.num_heads = 12
-  hparams.num_extras = 8
+  hparams.extra_tokens = 8
   return hparams
   
 
