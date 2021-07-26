@@ -4,7 +4,7 @@ import tensorflow as tf
 
 
 @registry.register_model
-class Transformerextratokentodecoderv2(Transformer):
+class Transformerextratokentodecoderv2(transformer.Transformer):
 
   def encode(self, *args, **kwargs):
     encoder_output, encoder_decoder_attention_bias = super(
