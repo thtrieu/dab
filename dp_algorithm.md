@@ -24,9 +24,9 @@ def match_score(m, n):
     
 
 # Dynamic Programming for pair matching:
-# define: F[m, n] is sum of bleu scores between all pairs in the best matching 
+# define: F[m, n] is sum of match scores between all pairs in the best matching 
 # between en_doc[:m] and vi_doc[:n], i.e.,
-# F[m, n] = sum(bleu(p, q) for p, q in best_pairs(en_doc[:m], vi_doc[:n])
+# F[m, n] = sum(score(p, q) for p, q in best_pairs(en_doc[:m], vi_doc[:n])
 # then:
 for m in range(M):
   for n in range(N):
