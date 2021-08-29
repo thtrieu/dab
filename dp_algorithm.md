@@ -14,7 +14,7 @@ scores = {}  # dict((m, n) -> float)
 
 def match_score(m, n):
   """Returns how 'matched' en_doc[m] and vi_doc[n] is."""
-  if (m, n) not in bleu_score:
+  if (m, n) not in scores:
     en_line, en2vi_line = en_doc[m], en2vi_doc[m]
     vi_line, vi2en_line = vi_doc[n], vi2en_doc[n]
     bleu_score[(m, n)] = bleu(en_line, vi2en_line) + 
@@ -36,7 +36,7 @@ for m in range(M):
     elif n == 0:
       F[m, n] = max(F[:m, 0], match_m_n)
     else:
-      F[m, n] = max(F[m-1, n-1] + get_bleu_score(m, n),
+      F[m, n] = max(F[m-1, n-1] + match_m_n,
                     F[m-1, n],
                     F[m, n-1])
 
