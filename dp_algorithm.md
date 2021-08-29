@@ -20,7 +20,7 @@ def match_score(m, n):
     bleu_score[(m, n)] = bleu(en_line, vi2en_line) + 
                          bleu(vi_line, en2vi_line)
 
-  return bleu_score[(m, n)]
+  return scores[(m, n)]
     
 
 # Dynamic Programming for pair matching:
@@ -46,7 +46,7 @@ p, q = M-1, N-1  # python's last index of M-element and N-element lists.
 best_pairs = []
 
 while p >= 0 and q >= 0:
- if F[p, q] == F[p-1, q-1] + bleu_score[p, q]:
+ if F[p, q] == F[p-1, q-1] + scores[p, q]:
    best_pairs += [(p, q)]
    p, q = p-1, q-1
  elif F[p, q] == F[p-1, q]:
