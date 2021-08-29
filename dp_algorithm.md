@@ -10,19 +10,18 @@ vi2en_doc = vietai_translate_model_translate_vien(vi_doc)
 # en2vi_doc: list of M strings
 # vi2en_doc: list of N strings
 
-# Next compute M x N BLEU scores:
-M = len(en_doc)
-N = len(vi_doc)
-bleu_score = np.zero((M, N))
+scores = {}  # dict((m, n) -> float)
 
-for m in range(M):
-  en_line, en2vi_line = en_doc[m], en2vi_doc[m]
-  
-  for n in range(N):
+def match_score(m, n):
+  """Returns how 'matched' en_doc[m] and vi_doc[n] is."""
+  if (m, n) not in bleu_score:
+    en_line, en2vi_line = en_doc[m], en2vi_doc[m]
     vi_line, vi2en_line = vi_doc[n], vi2en_doc[n]
+    bleu_score[(m, n)] = bleu(en_line, vi2en_line) + 
+                         bleu(vi_line, en2vi_line)
+
+  return bleu_score[(m, n)]
     
-    bleu_score[m, n] = bleu(en_line, vi2en_line) + 
-                       bleu(vi_line, en2vi_line)
 
 # Dynamic Programming for pair matching:
 # define: F[m, n] is sum of bleu scores between all pairs in the best matching 
@@ -31,19 +30,26 @@ for m in range(M):
 # then:
 for m in range(M):
   for n in range(N):
-    F[m, n] = max(F[m-1, n-1] + bleu_score[m, n],
-                  F[m-1, n],
-                  F[m, n-1])
+    match_m_n = match_score(m, n)
+    if m == 0:
+      F[m, n] = max(F[0, :n], match_m_n)
+    elif n == 0:
+      F[m, n] = max(F[:m, 0], match_m_n)
+    else:
+      F[m, n] = max(F[m-1, n-1] + get_bleu_score(m, n),
+                    F[m-1, n],
+                    F[m, n-1])
+
 
 # Backtracking:
-p, q = M, N
-best_pairs = []  
+p, q = M-1, N-1  # python's last index of M-element and N-element lists.
+best_pairs = []
 
-while p and q:
+while p >= 0 and q >= 0:
  if F[p, q] == F[p-1, q-1] + bleu_score[p, q]:
    best_pairs += [(p, q)]
    p, q = p-1, q-1
- elif F[m, n] == F[m-1, n]:
+ elif F[p, q] == F[p-1, q]:
    p -= 1
  else:
    q -= 1
